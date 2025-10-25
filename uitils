@@ -1,0 +1,15 @@
+import OpenAI from 'openai';
+
+const client = new OpenAI({ apiKey: process.env.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 });
+
+export async function generateReply(name, text) {
+    const result = await client.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+            { role: "system", content: "Customer service profesional." },
+            { role: "user", content: `Balas: ${text}` }
+        ],
+        max_tokens: 400
+    });
+    return result.choices[0].message.content;
+}
